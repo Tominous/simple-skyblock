@@ -34,6 +34,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import holiday.garet.skyblock.leveling.Quest;
+
 public class Island {
 	
 	int islandKey;
@@ -43,6 +45,7 @@ public class Island {
 	Location p2;
 	String leader;
 	List<String> members;
+	List<String> achievedQuests;
 	Boolean allowVisitors = true;
 	Boolean canReset = true;
 	Boolean visitorsCanRideMobs = false;
@@ -67,6 +70,7 @@ public class Island {
 					data.getInt("data.islands." + islandKey + ".p2.z"));
 			leader = data.getString("data.islands." + islandKey + ".leader");
 			members = data.getStringList("data.islands." + islandKey + ".members");
+			achievedQuests = data.getStringList("data.islands." + islandKey + ".achievedQuests");
 			allowVisitors = data.getBoolean("data.islands." + islandKey + ".allowVisitors");
 			visitorsCanRideMobs = data.getBoolean("data.islands." + islandKey + ".visitorsCanRideMobs");
 			visitorsCanPortal = data.getBoolean("data.islands." + islandKey + ".visitorsCanPortal");
@@ -89,6 +93,7 @@ public class Island {
 		plugin = _plugin;
 		data = _data;
 		members = new ArrayList<String>();
+		achievedQuests = new ArrayList<String>();
 		if (data.isSet("data.islands." + String.valueOf(islandKey) + ".nether")) {
 			nether = data.getBoolean("data.islands." + String.valueOf(islandKey) + ".nether");
 		} else {
@@ -131,6 +136,7 @@ public class Island {
 		}
 		data.set("data.islands." + String.valueOf(islandKey) + ".leader", leader);
 		data.set("data.islands." + String.valueOf(islandKey) + ".members", members);
+		data.set("data.islands." + String.valueOf(islandKey) + ".achievedQuests", achievedQuests);
 		data.set("data.islands." + String.valueOf(islandKey) + ".allowVisitors", allowVisitors);
 		data.set("data.islands." + String.valueOf(islandKey) + ".visitorsCanRideMobs", visitorsCanRideMobs);
 		data.set("data.islands." + String.valueOf(islandKey) + ".visitorsCanPortal", visitorsCanPortal);
@@ -290,6 +296,19 @@ public class Island {
 	
 	public void setVisitorsCanPortal(Boolean _value) {
 		visitorsCanPortal = _value;
+	}
+	
+	public boolean hasAchieved(Quest _quest) {
+		if (achievedQuests.contains(_quest.getID())) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void achieve(Quest _quest) {
+		if (!hasAchieved(_quest)) {
+			achievedQuests.add(_quest.getID());
+		}
 	}
 	
 }

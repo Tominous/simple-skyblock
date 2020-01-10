@@ -195,6 +195,27 @@ KILL_MONEY:
 
 
 
+# +---------------------------------+
+# |        QUESTING SETTINGS        |
+# +---------------------------------+
+
+# USE_QUESTING determines whether or not to use
+# SimpleSkyblock's questing system. They are
+# fully customizable and can be edited below.
+USE_QUESTING: true
+
+QUESTS:
+  collect_wood:
+    name: 'Collect Wood'
+    description: 'Collect 1 piece of Oak Wood'
+    requirements:
+    - OAK_WOOD:1
+    rewards:
+    - money:50
+    - IRON_INGOT:3
+
+
+
 # +--------------------------------+
 # |       MECHANICS SETTINGS       |
 # +--------------------------------+
