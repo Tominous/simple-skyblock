@@ -138,7 +138,9 @@ public class SimpleSkyblock extends JavaPlugin implements Listener {
     	} else if (config.getString("config-version").equalsIgnoreCase("1.2.1")) {
     		convertConfig("1.2.1","1.2.2");
     	} else if (config.getString("config-version").equalsIgnoreCase("1.2.2") || config.getString("config-version").equalsIgnoreCase("1.3.0")) {
-    		// config is up to date. added this to keep track of needing to convert config again.
+    		getLogger().warning("Your configuration file is out of date! You may continue to use it, but it may not contain the latest settings.");
+    	} else if (config.getString("config-version").equalsIgnoreCase("1.4.0")) {
+    		// config is up to date.
     	}
         this.saveDefaultConfig();
         this.getConfig().options().copyDefaults(true);

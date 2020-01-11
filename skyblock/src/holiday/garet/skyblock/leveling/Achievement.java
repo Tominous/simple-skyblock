@@ -14,4 +14,8 @@ public class Achievement {
 		achievementID = _achievementID;
 		player = _player;
 	}
+	
+	public String getID() {
+		return achievementID;
+	}
 }

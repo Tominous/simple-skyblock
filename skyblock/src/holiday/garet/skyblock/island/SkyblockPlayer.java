@@ -24,6 +24,7 @@
 
 package holiday.garet.skyblock.island;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Location;
@@ -31,6 +32,8 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+
+import holiday.garet.skyblock.leveling.Achievement;
 
 public class SkyblockPlayer {
 	
@@ -45,6 +48,7 @@ public class SkyblockPlayer {
 	Boolean wasVisiting = false;
 	Location skySpawn;
 	Location oldBedSpawn;
+	List<String> achievements;
 	
 	public SkyblockPlayer(Player _player, Island _island, World _world, World _world_nether, FileConfiguration _data, Plugin _plugin) {
 		
@@ -75,6 +79,9 @@ public class SkyblockPlayer {
 				_player.setBedSpawnLocation(_world.getSpawnLocation(), false);
 			}
 		}
+		if (data.isSet("data.players." + player.toString() + ".achievements")) {
+			achievements = data.getStringList("data.players." + player.toString() + ".achievements");
+		}
 	}
 	
 	public SkyblockPlayer(UUID _player, Island _island, World _world, World _world_nether, FileConfiguration _data, Plugin _plugin) {
@@ -100,6 +107,9 @@ public class SkyblockPlayer {
 		if (data.isSet("data.players." + player.toString() + ".visiting")) {
 			wasVisiting = true;
 		}
+		if (data.isSet("data.players." + player.toString() + ".achievements")) {
+			achievements = data.getStringList("data.players." + player.toString() + ".achievements");
+		}
 	}
 	
 	public void savePlayer() {
@@ -121,6 +131,7 @@ public class SkyblockPlayer {
 		if (visiting != null) {
 			data.set("data.players." + player.toString() + ".visiting", visiting.getPlayerUUID().toString());
 		}
+		data.set("data.players." + player.toString() + ".achievements", achievements);
 	}
 	
 	public Player getPlayer() {
@@ -185,6 +196,19 @@ public class SkyblockPlayer {
 	
 	public Location oldBedSpawn() {
 		return oldBedSpawn;
+	}
+	
+	public Boolean hasAchieved(Achievement _achievement) {
+		if (achievements.contains(_achievement.getID())) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void achieve(Achievement _achievement) {
+		if (!hasAchieved(_achievement)) {
+			achievements.add(_achievement.getID());
+		}
 	}
 	
 }

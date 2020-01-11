@@ -154,9 +154,9 @@ CHEST_ITEMS:
 # All other blocks not listed are calculated using
 # the value of 'Default'.
 LEVEL_PTS:
-- Default:1
+- Default:0
 - COBBLESTONE:0.1
-- SAPLING:50
+- OAK_WOOD_PLANKS:1
 - DIAMOND_BLOCK:1000
 - EMERALD_BLOCK:750
 - IRON_BLOCK:100
@@ -199,6 +199,10 @@ KILL_MONEY:
 # |        QUESTING SETTINGS        |
 # +---------------------------------+
 
+# What is Questing? Quests are like
+# achievements for islands and they cost
+# resources to complete.
+
 # USE_QUESTING determines whether or not to use
 # SimpleSkyblock's questing system. They are
 # fully customizable and can be edited below.
@@ -213,6 +217,31 @@ QUESTS:
     rewards:
     - money:50
     - IRON_INGOT:3
+    
+    
+    
+# +--------------------------------------+
+# |        ACHIEVEMENTS SETTINGS         |
+# +--------------------------------------+
+
+# Achievements are like quests, but they are
+# bound to players and do not cost anything to
+# complete.
+
+# USE_ACHIEVEMENTS determines whether or not
+# to use SimpleSkyblock's achievement system.
+# they are fully customizable and can be edited
+# below.
+USE_ACHIEVEMENTS: true
+
+ACHIEVEMENTS:
+  get_wood:
+    name: 'Wood Getter'
+    description: 'Collect 1 piece of Oak Wood'
+    requirements:
+    - OAK_WOOD:1
+    rewards:
+    - money:100
 
 
 
@@ -264,4 +293,4 @@ SOUL_SAND: true
 # You survived! You made it through the entire
 # config! Good job, now don't edit this line, or
 # it might do some funky stuff.
-config-version: 1.3.0
+config-version: 1.4.0

@@ -19,9 +19,9 @@ public class Quest {
 	SkyblockPlayer player;
 	Economy playerEcon;
 	
-	public Quest(ConfigurationSection _quests, Island _island, String _questID, SkyblockPlayer _player, Economy _playerEcon) {
+	public Quest(ConfigurationSection _quests, String _questID, SkyblockPlayer _player, Economy _playerEcon) {
 		quests = _quests;
-		island = _island;
+		island = _player.getIsland();
 		questID = _questID;
 		player = _player;
 		playerEcon = _playerEcon;
