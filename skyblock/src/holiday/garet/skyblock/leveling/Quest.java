@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import holiday.garet.skyblock.XMaterial;
+import holiday.garet.skyblock.economy.Economy;
 import holiday.garet.skyblock.island.Island;
 import holiday.garet.skyblock.island.SkyblockPlayer;
 
@@ -16,12 +17,14 @@ public class Quest {
 	Island island;
 	String questID;
 	SkyblockPlayer player;
+	Economy playerEcon;
 	
-	public Quest(ConfigurationSection _quests, Island _island, String _questID, SkyblockPlayer _player) {
+	public Quest(ConfigurationSection _quests, Island _island, String _questID, SkyblockPlayer _player, Economy _playerEcon) {
 		quests = _quests;
 		island = _island;
 		questID = _questID;
 		player = _player;
+		playerEcon = _playerEcon;
 	}
 	
 	public boolean testRequirements() {
@@ -55,8 +58,18 @@ public class Quest {
 				}
 				// add rewards
 				for (int i = 0; i < rews.size(); i++) {
-					ItemStack req = new ItemStack(XMaterial.matchXMaterial(rews.get(i).split(":")[0]).get().parseMaterial(), Integer.valueOf(rews.get(i).split(":")[1]));
-					pinv.addItem(req);
+					String matName = rews.get(i).split(":")[0];
+					int matAmnt = Integer.valueOf(rews.get(i).split(":")[1]);
+					if (matName == "money") {
+						if (playerEcon != null) {
+							playerEcon.deposit(matAmnt);
+						} else {
+							
+						}
+					} else {
+						ItemStack req = new ItemStack(XMaterial.matchXMaterial(matName).get().parseMaterial(), matAmnt);
+						pinv.addItem(req);
+					}
 				}
 				// add to island achieved quests
 				island.achieve(this);
